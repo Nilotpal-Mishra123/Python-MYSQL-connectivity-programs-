@@ -1,0 +1,29 @@
+import mysql.connector as m
+con=m.connect(host="localhost",user="root",password="mysql", database="Library")
+cur=con.cursor()
+def Add_book():
+    b_id=int(input("Enter book id: "))
+    name=input("enter book name: ")
+    price=float(input("enter book price: "))
+    b_type=input("enter book type: ")
+    value=(b_id,name,price,b_type)   # creating a tuple of book data
+    query="insert into book(book_id,b_name,price,type) values(%s,%s,%s,%s)"
+    cur.execute(query,value)
+    con.commit()       #saving changes to database
+    print("done")
+    
+def find():
+    query="select * from book where type='literature';"     #searching a specific type on DB,type can be changed accordingly
+    cur.execute(query)
+    result=cur.fetchall()
+    print("literature books details", result)
+    
+print("Press 1 for adding new book data")
+print("Press 2 for searching a book record")
+choice=int(input("enter your choice: "))
+if(choice==1):
+    Add_book()
+elif(choice==2):
+     find()       
+else:
+    print("Please enter valid input.")
