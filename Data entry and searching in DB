@@ -1,0 +1,18 @@
+import mysql.connector as mc
+con=mc.connect(host="localhost",user="root",password="mysql",database="my_database")
+cur=con.cursor()
+tourid=int(input("enter tour id: "))
+dest=input("tour dest. :")
+dept=input("enter departure date{YYYY-MM-DD}: ")
+price=float(input("enter price: "))
+
+query="insert into tours values({},'{}','{}',{})".format(tourid,dest,dept,price)
+res=cur.execute(query)
+con.commit()
+
+#for searching some data 
+query="select * from tours where price>5000.00;"
+cur.execute(query)
+res=cur.fetchall()
+for i in res:
+    print(i)
